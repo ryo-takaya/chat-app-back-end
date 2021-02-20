@@ -29,12 +29,7 @@ class AppController extends Controller
 {
 
     /**
-     * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading components.
-     *
-     * e.g. `$this->loadComponent('Security');`
-     *
+     * 
      * @return void
      */
     public function initialize()
@@ -62,7 +57,8 @@ class AppController extends Controller
             // // 未認証の場合、直前のページに戻します
             // 'unauthorizedRedirect' => $this->referer()
         ]);
-        $this->Auth->allow(['index']);
+        
+        $this->Auth->allow(['index','add']);
         $this->set('_serialize', true);
         
     }
