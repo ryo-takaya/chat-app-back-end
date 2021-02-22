@@ -52,14 +52,14 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ],
-            // // コントローラーで isAuthorized を使用します
+            // コントローラーで isAuthorized を使用します
             // 'authorize' => ['Controller'],
-            // // 未認証の場合、直前のページに戻します
-            // 'unauthorizedRedirect' => $this->referer()
+            // 未認証の場合、直前のページに戻します
+            'unauthorizedRedirect' => $this->referer()
         ]);
         
-        $this->Auth->allow(['index','add']);
+        $this->Auth->allow(['index']);
         $this->set('_serialize', true);
-        
+
     }
 }
