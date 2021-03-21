@@ -6,10 +6,10 @@ use Cake\Http\Exception\BadRequestException;
 class UsersController extends AppController
 {
      public function initialize()
-     {  
+     {
         parent::initialize();
-        $this->Auth->allow(['add']);
-        
+        $this->Auth->allow(['add','login']);
+
      }
 
     public function index(){
@@ -17,7 +17,7 @@ class UsersController extends AppController
     }
 
     public function login()
-    {  
+    {
       if($this->Auth->user('id')){
         $this->set(['iii'=>9]);
         return ;
@@ -36,9 +36,9 @@ class UsersController extends AppController
 
     public function add()
     {
-        
+
         $user = $this->Users->newEntity($this->request->getData());
-        
+
         var_dump($this->request->getData());
         if ($this->request->is('post')) {
           var_dump('seikousippai');
@@ -48,7 +48,7 @@ class UsersController extends AppController
             }
             throw new BadRequestException('登録ができません');
         }
-        
+
     }
 
 }
