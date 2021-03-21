@@ -2,16 +2,27 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Collection\Collection;
+use Cake\Http\Exception\BadRequestException;
 
 /**
  * Rooms Controller
  *
  * @property \App\Model\Table\RoomsTable $Rooms
- *
+ * @property \App\Model\Table\RoomsUsersTable $RoomsUsers
  * @method \App\Model\Entity\Room[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class RoomsController extends AppController
 {
+    /**
+     * @inheritDoc
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadModel('RoomsUsers');
+        $this->loadModel('Users');
+    }
 
     /**
      * Index method
@@ -20,9 +31,7 @@ class RoomsController extends AppController
      */
     public function index()
     {
-        $rooms = $this->paginate($this->Rooms);
-
-        $this->set(compact('rooms'));
+        $this->set(['rooms'=>$this->Rooms->find()]);
     }
 
     /**
@@ -44,22 +53,31 @@ class RoomsController extends AppController
     /**
      * Add method
      *
+     * @param user_id ユーザーのidの配列
+     * @param room_name 部屋名
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
-        $room = $this->Rooms->newEntity();
+        $usersId = $this->request->getData('user_id');
+        $room = $this->Rooms->newEntity(['room_name'=>$this->request->getData('room_name')]);
         if ($this->request->is('post')) {
-            $room = $this->Rooms->patchEntity($room, $this->request->getData());
-            if ($this->Rooms->save($room)) {
-                $this->Flash->success(__('The room has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The room could not be saved. Please, try again.'));
+            $this->Rooms->getConnection()->transactional(function() use ($room,$usersId){
+                $this->Rooms->saveOrFail($room);
+                $roomId = $this->Rooms->find()->first()->id;
+                foreach ($usersId as $userId){
+                    $room_user = $this->RoomsUsers->newEntity([
+                        'room_id' => $roomId,
+                        'user_id' => $userId
+                    ]);
+                    $this->RoomsUsers->saveOrFail($room_user);
+                }
+            });
+        } else {
+            new BadRequestException('post送信でしてください');
         }
-        $users = $this->Rooms->Users->find('list', ['limit' => 200]);
-        $this->set(compact('room', 'users'));
+       $roomInfo = $this->Rooms->find()->where(['room_name' => $room->room_name])->first();
+       $this->set(['room'=>$roomInfo]);
     }
 
     /**

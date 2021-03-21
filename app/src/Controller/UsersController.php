@@ -8,7 +8,7 @@ class UsersController extends AppController
      public function initialize()
      {
         parent::initialize();
-        $this->Auth->allow(['add','login']);
+//        $this->Auth->allow(['add','login']);
 
      }
 
@@ -33,7 +33,6 @@ class UsersController extends AppController
 
     public function add()
     {
-
         $user = $this->Users->newEntity($this->request->getData());
         if ($this->request->is('post')) {
             if ($this->Users->save($user)) {
