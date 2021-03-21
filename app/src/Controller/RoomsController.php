@@ -10,6 +10,7 @@ use Cake\Http\Exception\BadRequestException;
  *
  * @property \App\Model\Table\RoomsTable $Rooms
  * @property \App\Model\Table\RoomsUsersTable $RoomsUsers
+ * @property \App\Model\Table\RoomsUsersTable $Users
  * @method \App\Model\Entity\Room[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class RoomsController extends AppController
@@ -103,6 +104,29 @@ class RoomsController extends AppController
         $this->log($roomName);
         $this->Rooms->saveOrFail($room);
         $this->set(['room_name'=>$roomName]);
+    }
+
+    /**
+     * EditRoomMember method 部屋に所属しているメンバーを編集する
+     *
+     * @param string|null $id Room id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     */
+    public function editRoomMember($id = null)
+    {
+        if(is_null($id)){
+            throw new BadRequestException('idを指定してください');
+        }
+        $userIds = $this->request->getData('user_ids');
+        $room = $this->Rooms->get($id);
+        foreach ($userIds as $userId) {
+          $roomUser = $this->RoomsUsers->newEntity(['user_id'=>$userId,'room_id'=>$room->id]);
+          $this->RoomsUsers->saveOrFail($roomUser);
+        }
+        $users = $this->Users->find()->where(function ($exp) use($userIds){
+            return $exp->in('id',[$userIds]);
+        });
+        $this->set(['room'=>$room,'users'=>$users]);
     }
 
     /**
