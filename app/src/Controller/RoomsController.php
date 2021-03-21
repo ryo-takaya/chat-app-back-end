@@ -32,7 +32,7 @@ class RoomsController extends AppController
      */
     public function index()
     {
-        $this->set(['rooms'=>$this->Rooms->find()]);
+        $this->set(['rooms'=>$this->Rooms->find()->contain(['Users'])]);
     }
 
     /**
@@ -48,9 +48,10 @@ class RoomsController extends AppController
             throw new BadRequestException('idを指定してください');
         }
 
-        $room = $this->RoomsUsers->find()->where([
-            'room_id' => 'id'
+        $room = $this->Rooms->find()->where([
+            'id' => $id
         ]);
+        $room->contain('Users');
 
         $this->set('room', $room);
     }
@@ -69,7 +70,7 @@ class RoomsController extends AppController
         if ($this->request->is('post')) {
             $this->Rooms->getConnection()->transactional(function() use ($room,$usersId){
                 $this->Rooms->saveOrFail($room);
-                $roomId = $this->Rooms->find()->first()->id;
+                $roomId = $room->id;
                 foreach ($usersId as $userId){
                     $room_user = $this->RoomsUsers->newEntity([
                         'room_id' => $roomId,
@@ -81,7 +82,7 @@ class RoomsController extends AppController
         } else {
             new BadRequestException('post送信でしてください');
         }
-       $roomInfo = $this->Rooms->find()->where(['room_name' => $room->room_name])->first();
+       $roomInfo = $this->Rooms->find()->where(['room_name' => $room->room_name])->contain(['Users'])->first();
        $this->set(['room'=>$roomInfo]);
     }
 
@@ -134,10 +135,11 @@ class RoomsController extends AppController
      *
      * @param string|null $id Room id.
      */
-    public function delete()
+    public function delete($id=null)
     {
-        $id = $this->request->getData('id');
-        $this->log($id);
+        if(is_null($id)){
+            throw new BadRequestException('idを指定してください');
+        }
         $room = $this->Rooms->get($id);
         $this->Rooms->getConnection()->transactional(function () use($room){
           $this->Rooms->deleteOrFail($room);
