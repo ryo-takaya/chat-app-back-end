@@ -109,19 +109,18 @@ class RoomsController extends AppController
      * Delete method
      *
      * @param string|null $id Room id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete()
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $id = $this->request->getData('id');
+        $this->log($id);
         $room = $this->Rooms->get($id);
-        if ($this->Rooms->delete($room)) {
-            $this->Flash->success(__('The room has been deleted.'));
-        } else {
-            $this->Flash->error(__('The room could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
+        $this->Rooms->getConnection()->transactional(function () use($room){
+          $this->Rooms->deleteOrFail($room);
+          $this->RoomsUsers->deleteAll(['room_id'=>$room->id]);
+        });
+        $response = $this->response->withStatus(204);
+        $this->setResponse($response);
+        return $this->render();
     }
 }
