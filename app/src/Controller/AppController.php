@@ -29,7 +29,7 @@ class AppController extends Controller
 {
 
     /**
-     * 
+     *
      * @return void
      */
     public function initialize()
@@ -39,26 +39,26 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
-        $this->loadComponent('Auth', [
-            'authenticate' => [
-                'Form' => [
-                    'fields' => [
-                        'username' => 'email',
-                        'password' => 'password'
-                    ]
-                ]
-            ],
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
-            // コントローラーで isAuthorized を使用します
-            // 'authorize' => ['Controller'],
-            // 未認証の場合、直前のページに戻します
-            'unauthorizedRedirect' => $this->referer()
-        ]);
-        
-        $this->Auth->allow(['index']);
+//        $this->loadComponent('Auth', [
+//            'authenticate' => [
+//                'Form' => [
+//                    'fields' => [
+//                        'username' => 'email',
+//                        'password' => 'password'
+//                    ]
+//                ]
+//            ],
+//            'loginAction' => [
+//                'controller' => 'Users',
+//                'action' => 'login'
+//            ],
+//            // コントローラーで isAuthorized を使用します
+//            // 'authorize' => ['Controller'],
+//            // 未認証の場合、直前のページに戻します
+//            'unauthorizedRedirect' => $this->referer()
+//        ]);
+//
+//        $this->Auth->allow(['index']);
         $this->set('_serialize', true);
 
     }

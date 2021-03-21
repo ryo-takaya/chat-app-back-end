@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/app/vendor/josegonzalez/dotenv" />
+      <path value="$PROJECT_DIR$/app/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/app/vendor/mobiledetect/mobiledetectlib" />
+      <path value="$PROJECT_DIR$/app/vendor/aptoma/twig-markdown" />
+      <path value="$PROJECT_DIR$/app/vendor/composer" />
+      <path value="$PROJECT_DIR$/app/vendor/asm89/twig-cache-extension" />
+      <path value="$PROJECT_DIR$/app/vendor/m1/env" />
+      <path value="$PROJECT_DIR$/app/vendor/cakephp/cakephp" />
+      <path value="$PROJECT_DIR$/app/vendor/ajgl/breakpoint-twig-extension" />
+      <path value="$PROJECT_DIR$/app/vendor/cakephp/migrations" />
+      <path value="$PROJECT_DIR$/app/vendor/cakephp/plugin-installer" />
+      <path value="$PROJECT_DIR$/app/vendor/cakephp/debug_kit" />
+      <path value="$PROJECT_DIR$/app/vendor/cakephp/chronos" />
+      <path value="$PROJECT_DIR$/app/vendor/cakephp/cakephp-codesniffer" />
+      <path value="$PROJECT_DIR$/app/vendor/cakephp/bake" />
+      <path value="$PROJECT_DIR$/app/vendor/wyrihaximus/twig-view" />
+      <path value="$PROJECT_DIR$/app/vendor/umpirsky/twig-php-function" />
+      <path value="$PROJECT_DIR$/app/vendor/robmorgan/phinx" />
+      <path value="$PROJECT_DIR$/app/vendor/aura/intl" />
+      <path value="$PROJECT_DIR$/app/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/app/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/app/vendor/seld/jsonlint" />
+      <path value="$PROJECT_DIR$/app/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/app/vendor/jasny/twig-extensions" />
+      <path value="$PROJECT_DIR$/app/vendor/dnoegel/php-xdg-base-dir" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/app/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/app/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/app/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/app/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/app/vendor/zendframework/zend-diactoros" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/app/vendor/jdorn/sql-formatter" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/app/vendor/seld/phar-utils" />
+    </include_path>
+  </component>
+</project>
