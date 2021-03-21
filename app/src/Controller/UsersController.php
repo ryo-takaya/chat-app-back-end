@@ -18,18 +18,15 @@ class UsersController extends AppController
 
     public function login()
     {
-      if($this->Auth->user('id')){
-        $this->set(['iii'=>9]);
-        return ;
-      }
         if ($this->request->is('post')) {
           $user = $this->Auth->identify();
           if ($user) {
             $this->Auth->setUser($user);
             $this->set(['user'=>$user]);
+            return;
           }
         }
-        // throw new BadRequestException('ユーザー情報が間違っています');
+        throw new BadRequestException('ユーザー情報が間違っています');
     }
 
 
