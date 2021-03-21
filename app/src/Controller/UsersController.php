@@ -35,17 +35,14 @@ class UsersController extends AppController
     {
 
         $user = $this->Users->newEntity($this->request->getData());
-
-        var_dump($this->request->getData());
         if ($this->request->is('post')) {
-          var_dump('seikousippai');
             if ($this->Users->save($user)) {
-              var_dump('seikou');
               $this->set(['user' => $user]);
+              return;
             }
             throw new BadRequestException('登録ができません');
         }
-
+        throw new BadRequestException('post送信をしてください');
     }
 
 }
