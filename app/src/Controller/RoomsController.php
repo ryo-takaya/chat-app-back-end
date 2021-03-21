@@ -43,8 +43,12 @@ class RoomsController extends AppController
      */
     public function view($id = null)
     {
-        $room = $this->Rooms->get($id, [
-            'contain' => ['Users', 'Messages']
+        if(is_null($id)){
+            throw new BadRequestException('idを指定してください');
+        }
+
+        $room = $this->RoomsUsers->find()->where([
+            'room_id' => 'id'
         ]);
 
         $this->set('room', $room);
@@ -81,28 +85,24 @@ class RoomsController extends AppController
     }
 
     /**
-     * Edit method
+     * EditName method 部屋名を編集する
      *
      * @param string|null $id Room id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function editName($id = null)
     {
-        $room = $this->Rooms->get($id, [
-            'contain' => ['Users']
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $room = $this->Rooms->patchEntity($room, $this->request->getData());
-            if ($this->Rooms->save($room)) {
-                $this->Flash->success(__('The room has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The room could not be saved. Please, try again.'));
+        if(is_null($id)){
+            throw new BadRequestException('idを指定してください');
         }
-        $users = $this->Rooms->Users->find('list', ['limit' => 200]);
-        $this->set(compact('room', 'users'));
+
+        $room = $this->Rooms->get($id);
+        $roomName = $this->request->getData('room_name');
+        $room = $this->Rooms->patchEntity($room, ['room_name'=>$roomName]);
+        $this->log($roomName);
+        $this->Rooms->saveOrFail($room);
+        $this->set(['room_name'=>$roomName]);
     }
 
     /**
